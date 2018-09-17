@@ -4,12 +4,41 @@ console.log('Starting notes.js');
 module.exports.add = (a, b) => {
     return a+b;
 }*/
+const fs = require('fs');
 
-var addNote = (title, body) => {
-    console.log(`Title: ${title} \nBody: ${body}`);
+let fetchNotes = () => {
+    try {
+        return JSON.parse(fs.readFileSync('notes-data.json'));
+    } catch (e) {
+        console.log(e);
+        return [];
+    }
 };
 
-var readNote = (title) => {
+let saveNotes = (notes) => {
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+};c
+
+let addNote = (title, body) => {
+    let notes = fetchNotes();
+    let note = {title, body};
+    let duplicateNotes = [];
+
+    if (notes.length !== 0) {
+        duplicateNotes = notes.filter((note) => note.title === title);
+    }
+
+
+    if(duplicateNotes.length === 0) {
+        notes.push(note);
+        saveNotes(notes);
+        console.log(`Added note with\nTitle: ${title} and \nBody: ${body}`);
+    } else {
+        console.log(`Note with 'Title: ${title}' already exists`);
+    }
+};
+
+let readNote = (title) => {
     if (title) {
         console.log(`Reading note with title: ${title}`);
     } else {
@@ -17,7 +46,7 @@ var readNote = (title) => {
     }
 };
 
-var removeNote = (title) => {
+let removeNote = (title) => {
     if (title) {
         console.log(`Removing note with title: ${title}`);
     } else {
@@ -26,7 +55,7 @@ var removeNote = (title) => {
 
 };
 
-var getAll = () => {
+let getAll = () => {
     console.log('Fetching all notes');
 };
 
