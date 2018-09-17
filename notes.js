@@ -1,9 +1,5 @@
 console.log('Starting notes.js');
 
-/*module.exports.age = 26;
-module.exports.add = (a, b) => {
-    return a+b;
-}*/
 const fs = require('fs');
 
 let fetchNotes = () => {
@@ -17,7 +13,7 @@ let fetchNotes = () => {
 
 let saveNotes = (notes) => {
     fs.writeFileSync('notes-data.json', JSON.stringify(notes));
-};c
+};
 
 let addNote = (title, body) => {
     let notes = fetchNotes();
@@ -47,12 +43,18 @@ let readNote = (title) => {
 };
 
 let removeNote = (title) => {
-    if (title) {
-        console.log(`Removing note with title: ${title}`);
+    let notes = fetchNotes();
+    if (title && notes.length !== 0) {
+        let newNotes = notes.filter((note) => note.title !== title);
+        if (notes.length === newNotes.length) {
+            console.log(`The note with title ${title} does not exist.`);
+        } else {
+            console.log(`Removing note with title: ${title}`);
+            saveNotes(newNotes);
+        }
     } else {
         console.log('No title provided');
     }
-
 };
 
 let getAll = () => {
