@@ -2,6 +2,11 @@ console.log('Starting notes.js');
 
 const fs = require('fs');
 
+let printNote = (title, body) => {
+    console.log(`Title: ${title}`);
+    console.log(`Body: ${body}`);
+};
+
 let fetchNotes = () => {
     try {
         return JSON.parse(fs.readFileSync('notes-data.json'));
@@ -28,7 +33,7 @@ let addNote = (title, body) => {
     if(duplicateNotes.length === 0) {
         notes.push(note);
         saveNotes(notes);
-        console.log(`Added note with\nTitle: ${title} and \nBody: ${body}`);
+        printNote(title, body);
     } else {
         console.log(`Note with 'Title: ${title}' already exists`);
     }
@@ -36,7 +41,13 @@ let addNote = (title, body) => {
 
 let readNote = (title) => {
     if (title) {
-        console.log(`Reading note with title: ${title}`);
+        let notes = fetchNotes();
+        let filteredNote = notes.filter((note) => note.title === title);
+        if (filteredNote.length !== 0) {
+            printNote(filteredNote[0].title, filteredNote[0].body);
+        } else {
+            console.log('The note does not exist.')
+        }
     } else {
         console.log('No title provided');
     }

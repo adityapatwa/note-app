@@ -8,7 +8,7 @@ const argv = require('yargs').argv;
 
 const notes = require('./notes');// Custom Module
 
-//var user = os.userInfo();
+//let user = os.userInfo();
 
 //console.log("Result : ", notes.add(4, 6));
 
@@ -26,7 +26,7 @@ const notes = require('./notes');// Custom Module
 
 // console.log(process.argv);
 
-var command = argv._[0];
+let command = argv._[0];
 
 if (command === 'add') {
     //Add Note
@@ -34,7 +34,7 @@ if (command === 'add') {
 
 } else if (command === 'list') {
     //List Note(s)
-    var result = notes.getAll();
+    let result = notes.getAll();
 
 } else if (command === 'read') {
     //Reading Note(s)
