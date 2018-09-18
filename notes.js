@@ -70,6 +70,14 @@ let removeNote = (title) => {
 
 let getAll = () => {
     console.log('Fetching all notes');
+    let notes = fetchNotes();
+    if (notes.length !==0) {
+        notes.forEach((note) => {
+           printNote(note.title, note.body);
+        });
+    } else {
+        console.log('No notes exists.');
+    }
 };
 
 module.exports = {

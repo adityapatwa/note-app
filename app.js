@@ -34,7 +34,7 @@ if (command === 'add') {
 
 } else if (command === 'list') {
     //List Note(s)
-    let result = notes.getAll();
+    notes.getAll();
 
 } else if (command === 'read') {
     //Reading Note(s)
