@@ -1,12 +1,8 @@
-console.log('Starting app.js');
+// console.log('Starting app.js');
 
-const fs = require('fs'); // File System module
-const _ = require('lodash');// lodash Module
-const argv = require('yargs').argv;
-
-//const os = require('os');Operating System module
-
-const notes = require('./notes');// Custom Module
+// const fs = require('fs'); File System module
+// const os = require('os'); Operating System module
+// const _ = require('lodash'); lodash Module
 
 //let user = os.userInfo();
 
@@ -25,6 +21,33 @@ const notes = require('./notes');// Custom Module
 // The tick (`) operator is a ES6 feature that allows us to use template strings.
 
 // console.log(process.argv);
+const titleOptions = {
+    describe: 'Title for the note',
+    demand: true,
+    alias: 't'
+};
+
+const bodyOptions = {
+    describe: 'Body of the note',
+    demand: true,
+    alias: 'b'
+};
+const argv = require('yargs')
+    .command('add', 'Add a note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('list', 'List all the notes')
+    .command('read', 'Read a note with the given title', {
+        title: titleOptions
+    })
+    .command('remove', 'Remove a note with the given title', {
+        title: titleOptions
+    })
+    .help()
+    .argv;
+
+const notes = require('./notes');// Custom Module
 
 let command = argv._[0];
 
